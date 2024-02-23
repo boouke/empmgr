@@ -7,6 +7,7 @@ public class Database {
     public static String URL = "";
     public static String username = "";
     public Connection connect(){
+        Tools.stopwatchStart();
         URL = "jdbc:mysql://localhost:4431/hospital";
         username = "root";
         String password = "";
@@ -24,9 +25,11 @@ public class Database {
         } catch (java.sql.SQLException e){
             ErrorHandling.logError(e, "e0x91");
         }
+        Tools.stopwatchStop();
         return conn;
     }
     public Connection autoConnect(){
+        Tools.stopwatchStart();
         URL = "jdbc:mysql://localhost:4431/hospital";
         username = "root";
         String password = "";
@@ -37,12 +40,13 @@ public class Database {
         } catch (java.sql.SQLException e){
             ErrorHandling.logError(e, "e0x91");
         }
+        Tools.stopwatchStop();
         return conn;
     }
     public static boolean getConnectionStatus(){
         return isConnected;
     }
-    public static Connection getConn(){ return conn }
+    public static Connection getConn(){ return conn; }
     public static String getURL(){
         return URL;
     }

@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class Tools {
     Console cnsl = null;
-    private long startTime;
+    static long startTime;
 
-    public void stopwatchStart() {
+    public static void stopwatchStart() {
         startTime = System.nanoTime();
     }
 
-    public String stopwatchStop() {
+    public static String stopwatchStop() {
         long endTime = System.nanoTime();
         long elapsedTime = endTime - startTime;
 
