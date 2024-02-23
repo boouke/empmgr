@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -7,10 +6,15 @@ import java.util.Date;
 public class Query extends Database{
     ResultSet rs = null;
     Statement stmt = null;
-    public void query(){
+    public void prepareQuery(){
+        String query = Tools.stringValidate();
+        if (query.contains("SELECT")){
+            selectQuery(query);
+        }
+    }
+    public void selectQuery(String query){
         try {
             stmt = conn.createStatement();
-            String query = ErrorHandling.stringValidate();
             System.out.println("Executing query: " + query);
             rs = stmt.executeQuery(query);
 
@@ -42,12 +46,18 @@ public class Query extends Database{
                 if (stmt != null) {
                     stmt.close();
                 }
-                if (conn != null) {
-                    conn.close();
-                }
             }catch(java.sql.SQLException e){
                     ErrorHandling.logError(e, "e0x91");
             }
+        }
+    }
+    public void managerialQuery(boolean isAdmin, String query){
+        try {
+            stmt = conn.createStatement();
+            if (query.contains("DROP") || query.contains("TRUNCATE") || query.contains("COMMIT") || query.contains("ROLLBACK") || query.contains("SAVEPOINT") || query.contains("GRANT") || query.contains("REVOKE"))
+            stmt.executeUpdate(query);
+        } catch(java.sql.SQLException e){
+            ErrorHandling.logError(e, "e0x91");
         }
     }
 }

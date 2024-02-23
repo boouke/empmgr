@@ -2,11 +2,12 @@ public class Choice {
     public static void choice(){
         Database database = new Database();
         Query query = new Query();
+        database.autoConnect();
         boolean isConnected = Database.getConnectionStatus();
         System.out.println("\nWhat do you want to do? (Query, Connect, Status)");
-        String userFlag = ErrorHandling.stringValidate();
+        String userFlag = Tools.stringValidate();
         if (userFlag.equalsIgnoreCase("query")){
-            query.query();
+            query.prepareQuery();
         } else if (userFlag.equalsIgnoreCase("connect")) {
             if (isConnected){
                 System.out.println("\nThe connection is established. If you want to inspect the details, enquire \"Status\" ");
